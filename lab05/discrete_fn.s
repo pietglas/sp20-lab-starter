@@ -76,7 +76,21 @@ main:
 # a1 is the address of the "output" array (defined above).
 # Think: why might having a1 be useful?
 f:
-    # YOUR CODE GOES HERE!
+    addi sp, sp, -8
+    sw s0, 0(sp)
+    sw s1, 4(sp)
+
+    # get byte position of the output and advance a1 to that position
+    addi s0, a0, 3     
+    addi s1, x0, 4
+    mul s0, s0, s1
+    add a1, a1, s0
+
+    lr.w a0, a1, a1     # loads the word to which a1 points into a0
+
+    lw s0, 0(sp)
+    lw s1, 4(sp)
+    addi sp, sp, 8
 
     jr ra               # Always remember to jr ra after your function!
 
